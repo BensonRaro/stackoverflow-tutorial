@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-import { CreateUser, DeleteUser, UpdateUser } from "@/actions/user";
+import { createUser, DeleteUser, updateUser } from "@/actions/user";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -51,14 +51,16 @@ export async function POST(req: Request) {
     });
   }
 
+  // Do something with the payload
+  // For this guide, you simply log the payload to the console
   const eventType = evt.type;
 
+  // Create a new user in your database
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, username, first_name, last_name } =
       evt.data;
 
-    // Create a new user in your database
-    const user = await CreateUser(
+    const user = await createUser(
       {
         name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
         userName: username!,
@@ -72,12 +74,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "OK", user: user });
   }
 
+  // update user in your database
   if (eventType === "user.updated") {
     const { email_addresses, image_url, username, first_name, last_name } =
       evt.data;
 
-    // Create a new user in your database
-    const User = await UpdateUser(
+    const User = await updateUser(
       {
         name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
         userName: username!,
@@ -92,6 +94,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "OK", user: User });
   }
 
+  // delete user from your database
   if (eventType === "user.deleted") {
     const { id } = evt.data;
     const deletedUser = await DeleteUser(id!);

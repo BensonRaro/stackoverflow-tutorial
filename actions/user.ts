@@ -15,8 +15,7 @@ interface user {
 }
 
 // create user
-export async function CreateUser(values: user, userId: string) {
-  if (!userId) return;
+export async function createUser(values: user, userId: string) {
   try {
     await db.user.create({
       data: {
@@ -36,13 +35,12 @@ export async function CreateUser(values: user, userId: string) {
 }
 
 // update user
-export async function UpdateUser(values: user, use: "webhook" | "userUpdate") {
+export async function updateUser(values: user, use: "webhook" | "userUpdate") {
   const CurrentUser = await currentUser();
-
   if (!CurrentUser) return;
 
-  if (use === "webhook") {
-    try {
+  try {
+    if (use === "webhook") {
       await db.user.update({
         where: {
           userId: CurrentUser.id,
@@ -54,36 +52,33 @@ export async function UpdateUser(values: user, use: "webhook" | "userUpdate") {
           email: values.email || "",
         },
       });
-      revalidatePath("/", "layout");
-    } catch (error) {
-      console.log(error);
+    } else {
+      try {
+        await db.user.update({
+          where: {
+            userId: CurrentUser.id,
+          },
+          data: {
+            name: values.name,
+            userName: values.userName,
+            bio: values.bio,
+            portfolioWebsite: values.portfolioWebsite,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
-  } else {
-    try {
-      await db.user.update({
-        where: {
-          userId: CurrentUser.id,
-        },
-        data: {
-          name: values.name,
-          userName: values.userName,
-          bio: values.bio,
-          portfolioWebsite: values.portfolioWebsite,
-        },
-      });
-      revalidatePath("/", "layout");
-    } catch (error) {
-      console.log(error);
-    }
+    revalidatePath("/", "layout");
+  } catch (error) {
+    console.log(error);
   }
 }
-
-// delete user
 export async function DeleteUser(userId: string) {
   try {
     await db.user.delete({
       where: {
-        userId,
+        userId: userId,
       },
     });
     revalidatePath("/", "layout");
