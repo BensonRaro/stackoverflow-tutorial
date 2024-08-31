@@ -1,0 +1,116 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id                      String    @id @default(cuid())
+  userId                  String    @unique
+  name                    String
+  userName                String  
+  imageUrl                String    
+  email                   String 
+  bio                     String?
+  portfolioWebsite        String?
+
+  questions               question[]
+  collection              collection[]
+  upvotes                 upvote[]
+  downvotes               downvote[]
+  tags                    tag[]
+  answer                  answer[]
+
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+}
+
+model question {
+  id                      String    @id @default(cuid())
+  title                   String  
+  explanation             String    @db.LongText   
+  userId                  String    
+
+  user                    user      @relation(fields: [userId], references: [userId],onDelete: Cascade)
+
+  saves                   collection[] 
+  upvotes                 upvote[]
+  downvotes               downvote[]
+  tags                    tag[]
+  answer                  answer[]
+
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+}
+
+model answer {
+  id                      String    @id @default(cuid())
+  questionId              String
+  answer                  String    @db.LongText
+  userId                  String    
+
+  user                    user      @relation(fields: [userId], references: [userId],onDelete: Cascade)
+  question                question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  upvotes                 upvote[]
+  downvotes               downvote[]
+
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+}
+
+model collection {
+  id                      String    @id @default(cuid())
+  questionId              String
+  userId                  String    
+
+  user                    user      @relation(fields: [userId], references: [userId],onDelete: Cascade)
+  question                question  @relation(fields: [questionId], references: [id],onDelete: Cascade)
+
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+}
+
+model upvote {
+  id                      String    @id @default(cuid())
+  questionId              String?
+  answerId                String?
+  userId                  String    
+
+  user                    user      @relation(fields: [userId], references: [userId],onDelete: Cascade)
+  question                question?  @relation(fields: [questionId], references: [id],onDelete: Cascade)
+  answer                  answer?    @relation(fields: [answerId], references: [id],onDelete: Cascade)
+
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+}
+
+model downvote {
+  id                      String    @id @default(cuid())
+  questionId              String?
+  answerId                String?
+  userId                  String    
+
+  user                    user      @relation(fields: [userId], references: [userId],onDelete: Cascade)
+  question                question?  @relation(fields: [questionId], references: [id],onDelete: Cascade)
+  answer                  answer?    @relation(fields: [answerId], references: [id],onDelete: Cascade)
+
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+}
+
+model tag {
+  id                      String    @id @default(cuid())
+  questionId              String?
+  tag                     String
+  userId                  String    
+
+  user                    user      @relation(fields: [userId], references: [userId],onDelete: Cascade)
+  question                question?  @relation(fields: [questionId], references: [id],onDelete: Cascade,onUpdate: Cascade)
+
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+}
