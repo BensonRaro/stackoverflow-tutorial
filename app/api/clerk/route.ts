@@ -79,17 +79,16 @@ export async function POST(req: Request) {
     const { email_addresses, image_url, username, first_name, last_name } =
       evt.data;
 
-    const User = await updateUser(
-      {
-        name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
-        userName: username!,
-        email: email_addresses[0].email_address,
-        imageUrl: image_url,
-        bio: "",
-        portfolioWebsite: "",
-      },
-      "webhook"
-    );
+    const values = {
+      name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
+      userName: username!,
+      email: email_addresses[0].email_address,
+      imageUrl: image_url,
+      bio: "",
+      portfolioWebsite: "",
+    };
+
+    const User = await updateUser(values, "webhook");
 
     return NextResponse.json({ message: "OK", user: User });
   }
