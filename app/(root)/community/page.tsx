@@ -69,7 +69,11 @@ const Page = async ({
 
       <div className="mt-12">
         {result?.length! > 0 ? (
-          result?.map((user) => <UserCard key={user.id} user={user} />)
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+            {result?.map((user) => (
+              <UserCard key={user.id} user={user} />
+            ))}
+          </div>
         ) : (
           <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
             <p>No users yet</p>
