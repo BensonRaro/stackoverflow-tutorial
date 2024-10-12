@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 import { Inter, Space_Grotesk } from "next/font/google";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import "./globals.css";
 import "../styles/prism.css";
@@ -66,6 +61,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <Toaster position="bottom-right" />
           </ThemeProvider>
         </body>
       </html>

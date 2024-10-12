@@ -11,7 +11,7 @@ export const HomePageFilters = [
   { name: "Unanswered", value: "unanswered" },
 ];
 
-export const SavedPageFilters = [
+export const CollectionPageFilters = [
   { name: "Most Recent", value: "recent" },
   { name: "Oldest", value: "old" },
 ];

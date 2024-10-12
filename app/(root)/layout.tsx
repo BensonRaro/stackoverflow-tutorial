@@ -1,18 +1,34 @@
 import Header from "@/components/navigation/Header";
 import LeftSidebar from "@/components/navigation/LeftSidebar";
+import RightSidebar from "@/components/navigation/RightSidebar";
+import ParseHTML from "@/components/ParseHTML";
+import { db } from "@/lib/db";
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  const question = await db.question.findUnique({
+    where: {
+      id: "cm0odj3tm0001wontx4hs51q4",
+    },
+    include: {
+      tags: true,
+      answer: true,
+      downvotes: true,
+      saves: true,
+      upvotes: true,
+      user: true,
+    },
+  });
   return (
-    <div className="relative background-light850_dark100">
+    <main className="relative background-light850_dark100">
       <Header />
       <div className="flex">
         <LeftSidebar />
-        <section className="flex max-h-screen flex-1 flex-col px-6 pb-6 pt-32 max-md:pb-14 sm:px-14">
+        <section className="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14">
           <div className="mx-auto w-full max-w-5xl">{children}</div>
         </section>
-        RightSidebar
+        <RightSidebar />
       </div>
-    </div>
+    </main>
   );
 };
 

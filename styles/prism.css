@@ -5,7 +5,7 @@
  * @author Ayush Saini <@AyushCodes on Twitter>
  */
 
- code[class*="language-"],
+code[class*="language-"],
  pre[class*="language-"] {
    color: #d6e7ff;
    background: #030314;
@@ -118,4 +118,3 @@
  .token.variable {
    color: #d6e7ff;
  }
- 
