@@ -38,7 +38,7 @@ const Votes = ({
 }: Props) => {
   const [isPending, startTransition] = useTransition();
 
-  const hasSaved = saved?.some((item) => item.userId === userId);
+  const hasSaved = saved?.some((item) => item.questionId === itemId);
 
   const handleSave = () => {
     startTransition(async () => {
