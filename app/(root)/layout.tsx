@@ -1,23 +1,8 @@
 import Header from "@/components/navigation/Header";
 import LeftSidebar from "@/components/navigation/LeftSidebar";
 import RightSidebar from "@/components/navigation/RightSidebar";
-import ParseHTML from "@/components/ParseHTML";
-import { db } from "@/lib/db";
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
-  const question = await db.question.findUnique({
-    where: {
-      id: "cm0odj3tm0001wontx4hs51q4",
-    },
-    include: {
-      tags: true,
-      answer: true,
-      downvotes: true,
-      saves: true,
-      upvotes: true,
-      user: true,
-    },
-  });
   return (
     <main className="relative background-light850_dark100">
       <Header />
