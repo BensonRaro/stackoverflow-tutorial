@@ -125,7 +125,7 @@ const Profile = ({ user }: Props) => {
               </FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="What's special about you?"
+                  placeholder="Whats special about you?"
                   className="no-focus paragraph-regular light-border-2 background-light800_dark300 text-dark300_light700 min-h-[56px] border"
                   {...field}
                 />

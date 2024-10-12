@@ -112,8 +112,8 @@ const AskEditQuestion = ({
                     />
                   </FormControl>
                   <FormDescription className="body-regular mt-2.5 text-light-500">
-                    Be specific and imagine you're asking a question to another
-                    person.
+                    Be specific and imagine you"&apos"re asking a question to
+                    another person.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -149,8 +149,8 @@ const AskEditQuestion = ({
                     />
                   </FormControl>
                   <FormDescription className="body-regular mt-2.5 text-light-500">
-                    Be specific and imagine you're asking a question to another
-                    person.
+                    Be specific and imagine you"&apos"re asking a question to
+                    another person.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -173,8 +173,8 @@ const AskEditQuestion = ({
                     />
                   </FormControl>
                   <FormDescription className="body-regular mt-2.5 text-light-500">
-                    Be specific and imagine you're asking a question to another
-                    person.
+                    Be specific and imagine you"&apos"re asking a question to
+                    another person.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
