@@ -6,6 +6,7 @@ import { useTransition } from "react";
 
 import { DeleteQuestion } from "@/actions/Question";
 import { Button } from "@/components/ui/button";
+import { DeleteAnswer } from "@/actions/answer";
 
 interface Props {
   type: string;
@@ -27,7 +28,7 @@ const EditDeleteButtons = ({ type, itemId }: Props) => {
         await DeleteQuestion(itemId);
       } else if (type === "Answer") {
         // Delete answer
-        //   await DeleteAnswer(itemId);
+        await DeleteAnswer(itemId);
       }
     });
   };
@@ -46,14 +47,18 @@ const EditDeleteButtons = ({ type, itemId }: Props) => {
         </Button>
       )}
 
-      <Button size={"icon"} variant={"ghost"}>
+      <Button
+        size={"icon"}
+        variant={"ghost"}
+        disabled={pending}
+        onClick={handleDelete}
+      >
         <Image
           src="/assets/icons/trash.svg"
           alt="Delete"
           width={20}
           height={20}
           className="cursor-pointer object-contain"
-          onClick={handleDelete}
         />
       </Button>
     </div>

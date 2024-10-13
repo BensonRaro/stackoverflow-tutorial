@@ -23,3 +23,19 @@ export async function AddAnswer(id: string, answer: string) {
     console.log(error);
   }
 }
+
+export async function DeleteAnswer(id: string) {
+  const user = await currentUser();
+  if (!user) return;
+  if (!id) return;
+  try {
+    await db.answer.delete({
+      where: {
+        id: id,
+      },
+    });
+    revalidatePath("/", "layout");
+  } catch (error) {
+    console.log(error);
+  }
+}
