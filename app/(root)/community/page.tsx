@@ -53,7 +53,7 @@ const Page = async ({
               route="/"
               iconPosition="left"
               imgSrc="/assets/icons/search.svg"
-              placeholder="Search for questions"
+              placeholder="Search for Users"
               otherClasses="flex-1"
             />
             {/* MobileFilters */}
